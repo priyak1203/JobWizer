@@ -13,11 +13,13 @@ const Register = () => {
         <FormRow type="text" name="location" />
         <FormRow type="email" name="email" />
         <FormRow type="password" name="password" />
-        <button className="btn btn-block">submit</button>
+        <button className="btn btn-block" type="submit">
+          submit
+        </button>
         <p>
           Already a member?
           <Link to="/login" className="member-btn">
-            Login
+            login
           </Link>
         </p>
       </form>

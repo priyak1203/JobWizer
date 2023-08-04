@@ -29,6 +29,7 @@ const Wrapper = styled.section`
     color: var(--primary-500);
     letter-spacing: var(--letter-spacing);
     margin-left: 0.25rem;
+    text-transform: capitalize;
   }
 `;
 
