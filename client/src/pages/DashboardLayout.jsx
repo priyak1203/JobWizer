@@ -17,7 +17,10 @@ const DashboardLayout = () => {
   };
 
   const toggleDarkTheme = () => {
-    console.log('toggle Dark theme');
+    const newDarkTheme = !isDarkTheme;
+    setIsDarkTheme(newDarkTheme);
+    document.body.classList.toggle('dark-theme', newDarkTheme);
+    localStorage.setItem('darkTheme', newDarkTheme);
   };
 
   const logoutUser = () => {
