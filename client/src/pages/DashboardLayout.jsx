@@ -8,6 +8,7 @@ const DashboardContext = createContext();
 const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+
   // temp
   const user = { name: 'priya' };
 
