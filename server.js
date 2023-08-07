@@ -7,17 +7,17 @@ dotenv.config();
 const app = express();
 
 // node new features
-// 1. fetch API - async await
+// 2. global await - (top level await)
 
-const getData = async () => {
+try {
   const response = await fetch(
     'https://www.course-api.com/react-useReducer-cart-project'
   );
   const cartData = await response.json();
   console.log(cartData);
-};
-
-getData();
+} catch (error) {
+  console.log(error);
+}
 
 // conditions for dev environment
 if (process.env.NODE_ENV === 'development') {
