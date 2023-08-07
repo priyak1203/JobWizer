@@ -8,7 +8,6 @@ const app = express();
 
 // node new features
 // 2. global await - (top level await)
-
 try {
   const response = await fetch(
     'https://www.course-api.com/react-useReducer-cart-project'
