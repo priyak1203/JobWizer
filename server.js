@@ -1,8 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 
 dotenv.config();
+
 const app = express();
+
+// conditions for dev environment
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // middlewares
 app.use(express.json());
@@ -13,7 +20,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log(req);
   res.json({ message: 'message received', data: req.body });
 });
 
