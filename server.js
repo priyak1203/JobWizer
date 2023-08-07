@@ -55,6 +55,7 @@ app.get('/api/v1/jobs/:id', (req, res) => {
   const { id } = req.params;
   const job = jobs.find((job) => job.id === id);
   if (!job) {
+    throw new Error(`no job with id ${id}`);
     return res.status(404).json({ msg: `no job with id ${id}` });
   }
   res.status(201).json({ job });
@@ -93,6 +94,17 @@ app.delete('/api/v1/jobs/:id', (req, res) => {
   jobs = newJobs;
 
   res.status(200).json({ msg: 'job deleted' });
+});
+
+// Not Found middleware
+app.use('*', (req, res) => {
+  res.status(404).json({ msg: 'route does not exist' });
+});
+
+// Error middleware
+app.use((err, req, res, next) => {
+  console.log(err.message);
+  res.status(500).json({ msg: 'something went wrong' });
 });
 
 const PORT = process.env.PORT || 3000;
