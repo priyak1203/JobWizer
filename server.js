@@ -6,6 +6,12 @@ dotenv.config();
 
 const app = express();
 
+// node new features
+// 1. fetch API
+fetch('https://www.course-api.com/react-useReducer-cart-project')
+  .then((res) => res.json())
+  .then((result) => console.log(result));
+
 // conditions for dev environment
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
