@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import 'express-async-errors';
 
 dotenv.config();
 
@@ -20,7 +21,6 @@ app.use(express.json());
 
 // routes
 app.get('/', (req, res) => {
-  console.log(user);
   res.send('Hello World');
 });
 
