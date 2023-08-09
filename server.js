@@ -13,6 +13,7 @@ import jobRouter from './routes/jobsRouter.js';
 
 // error handlers
 import errorHandler from './middlewares/errorHandler.js';
+import notFoundHandler from './middlewares/notFound.js';
 
 // conditions for dev environment
 if (process.env.NODE_ENV === 'development') {
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 // middlewares
 app.use(express.json());
 
-// routes
+// test routes
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
@@ -31,12 +32,11 @@ app.post('/', (req, res) => {
   res.json({ message: 'message received', data: req.body });
 });
 
+// routes
 app.use('/api/v1/jobs', jobRouter);
 
-// Not Found middleware
-app.use('*', (req, res) => {
-  res.status(404).json({ msg: 'route does not exist' });
-});
+// Not found route middleware
+app.use(notFoundHandler);
 
 // Error handler middleware
 app.use(errorHandler);
