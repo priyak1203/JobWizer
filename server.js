@@ -11,6 +11,9 @@ const app = express();
 // routers
 import jobRouter from './routes/jobsRouter.js';
 
+// error handlers
+import errorHandler from './middlewares/errorHandler.js';
+
 // conditions for dev environment
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -35,11 +38,8 @@ app.use('*', (req, res) => {
   res.status(404).json({ msg: 'route does not exist' });
 });
 
-// Error middleware
-app.use((err, req, res, next) => {
-  console.log(err.message);
-  res.status(500).json({ msg: 'something went wrong' });
-});
+// Error handler middleware
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
