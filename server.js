@@ -20,6 +20,7 @@ app.use(express.json());
 
 // routes
 app.get('/', (req, res) => {
+  console.log(user);
   res.send('Hello World');
 });
 
