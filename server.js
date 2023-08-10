@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import 'express-async-errors';
-import { body, validationResult } from 'express-validator';
+
+import { validateTest } from './middlewares/validation.js';
 
 dotenv.config();
 
@@ -30,29 +31,10 @@ app.get('/', (req, res) => {
 });
 
 // validation test route
-app.post(
-  '/api/v1/test',
-  [
-    body('name')
-      .notEmpty()
-      .withMessage('name is required')
-      .isLength({ min: 10 })
-      .withMessage('name must be atleast 10 characters'),
-  ],
-  (req, res, next) => {
-    const errors = validationResult(req);
-    console.log(errors.isEmpty());
-    if (!errors.isEmpty()) {
-      const errorMessages = errors.array().map((error) => error.msg);
-      return res.status(400).json({ errors: errorMessages });
-    }
-    next();
-  },
-  (req, res) => {
-    const { name } = req.body;
-    res.json({ message: `Hello ${name}` });
-  }
-);
+app.post('/api/v1/test', validateTest, (req, res) => {
+  const { name } = req.body;
+  res.json({ message: `Hello ${name}` });
+});
 
 // routes
 app.use('/api/v1/jobs', jobRouter);
