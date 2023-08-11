@@ -4,8 +4,6 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import 'express-async-errors';
 
-import { validateTest } from './middlewares/validation.js';
-
 dotenv.config();
 
 const app = express();
@@ -28,12 +26,6 @@ app.use(express.json());
 // test routes
 app.get('/', (req, res) => {
   res.send('Hello World');
-});
-
-// validation test route
-app.post('/api/v1/test', validateTest, (req, res) => {
-  const { name } = req.body;
-  res.json({ message: `Hello ${name}` });
 });
 
 // routes
