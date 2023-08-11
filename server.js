@@ -10,6 +10,7 @@ const app = express();
 
 // routers
 import jobRouter from './routes/jobsRouter.js';
+import authRouter from './routes/authRouter.js';
 
 // error handlers
 import errorHandler from './middlewares/errorHandler.js';
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/auth', authRouter);
 
 // Not found route middleware
 app.use(notFoundHandler);
