@@ -3,6 +3,7 @@ import { BadRequestError, NotFoundError } from '../errors/customErrors.js';
 import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js';
 import { mongoose } from 'mongoose';
 import Job from '../models/jobModel.js';
+import User from '../models/userModel.js';
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -21,6 +22,7 @@ const withValidationErrors = (validateValues) => {
   ];
 };
 
+// validate job input
 export const validateJobInput = withValidationErrors([
   body('company').notEmpty().withMessage('company is required'),
   body('position').notEmpty().withMessage('position is required'),
@@ -33,6 +35,7 @@ export const validateJobInput = withValidationErrors([
     .withMessage('invalid job type value'),
 ]);
 
+// validate id parameter
 export const validateIdParam = withValidationErrors([
   param('id').custom(async (value) => {
     const isValidId = mongoose.Types.ObjectId.isValid(value);
@@ -40,4 +43,27 @@ export const validateIdParam = withValidationErrors([
     const job = await Job.findById(value);
     if (!job) throw new NotFoundError(`no job with id ${value}`);
   }),
+]);
+
+// validate register user input
+export const validateRegisterInput = withValidationErrors([
+  body('name').notEmpty().withMessage('name is required'),
+  body('email')
+    .notEmpty()
+    .withMessage('email is required')
+    .isEmail()
+    .withMessage('invalid email format')
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) {
+        throw new BadRequestError('email already exists');
+      }
+    }),
+  body('password')
+    .notEmpty()
+    .withMessage('password is required')
+    .isLength({ min: 8 })
+    .withMessage('password must be atleast 8 characters long'),
+  body('location').notEmpty().withMessage('location is required'),
+  body('lastName').notEmpty().withMessage('last name is required'),
 ]);
