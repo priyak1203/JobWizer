@@ -20,6 +20,7 @@ export const login = async (req, res) => {
   // check if the user exists
   const user = await User.findOne({ email: req.body.email });
 
+  // check if the password is correct
   const isValidUser =
     user && (await comparePassword(req.body.password, user.password));
 
