@@ -9,6 +9,7 @@ export const register = async (req, res) => {
   const isFirstAccount = (await User.countDocuments()) === 0;
   req.body.role = isFirstAccount ? 'admin' : 'user';
 
+  // hash the password and save
   const hashedPassword = await hashPassword(req.body.password);
   req.body.password = hashedPassword;
 
@@ -29,7 +30,7 @@ export const login = async (req, res) => {
 
   // setting up the cookie
   const token = createJWT({ userId: user._id, role: user.role });
-  const oneDay = 1000 * 60 * 60 * 24;
+  const oneDay = 1000 * 60 * 60 * 24; // one day in milli seconds
   res.cookie('token', token, {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
@@ -37,4 +38,13 @@ export const login = async (req, res) => {
   });
 
   res.status(StatusCodes.OK).json({ msg: 'user logged in' });
+};
+
+// Logout User
+export const logout = (req, res) => {
+  res.cookie('token', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
 };
