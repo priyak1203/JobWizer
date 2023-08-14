@@ -16,6 +16,9 @@ import authRouter from './routes/authRouter.js';
 import errorHandler from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFound.js';
 
+// user authentication
+import { authenticateUser } from './middlewares/authentication.js';
+
 // conditions for dev environment
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -30,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 // routes
-app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/auth', authRouter);
 
 // Not found route middleware
