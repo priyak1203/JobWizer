@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import 'express-async-errors';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 // test routes
 app.get('/', (req, res) => {
