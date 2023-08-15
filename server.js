@@ -10,6 +10,7 @@ dotenv.config();
 const app = express();
 
 // routers
+import userRouter from './routes/userRouter.js';
 import jobRouter from './routes/jobsRouter.js';
 import authRouter from './routes/authRouter.js';
 
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
 });
 
 // routes
+app.use('/api/v1/users', authenticateUser, userRouter);
 app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/auth', authRouter);
 
