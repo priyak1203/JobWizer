@@ -17,9 +17,18 @@ export const authenticateUser = (req, res, next) => {
   }
 };
 
-export const authorizePermissions = (req, res, next) => {
-  if (req.user.role !== 'admin') {
-    throw new UnauthorizedError('Unauthorized to access this route');
-  }
-  next();
+// export const authorizePermissions = (req, res, next) => {
+//   if (req.user.role !== 'admin') {
+//     throw new UnauthorizedError('Unauthorized to access this route');
+//   }
+//   next();
+// };
+
+export const authorizePermissions = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      throw new UnauthorizedError('Unauthorized to access this route');
+    }
+    next();
+  };
 };
