@@ -12,11 +12,6 @@ import {
   Register,
   Stats,
 } from './pages';
-import customFetch from './utils/customFetch';
-
-const response = await customFetch.get('/test');
-console.log(response);
-console.log(response.data);
 
 const router = createBrowserRouter([
   {
