@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import axios from 'axios';
 import {
   AddJob,
   Admin,
@@ -13,10 +14,9 @@ import {
   Stats,
 } from './pages';
 
-// checking the proxy setup
-fetch('/api/v1/test')
-  .then((res) => res.json())
-  .then((data) => console.log(data));
+const response = await axios.get('/api/v1/test');
+console.log(response);
+console.log(response.data);
 
 const router = createBrowserRouter([
   {
