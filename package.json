@@ -7,8 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup-project": "npm i && cd client && npm i",
-    "dev": "nodemon server.js",
-    "watch": "node --watch server.js"
+    "dev-server": "nodemon server.js",
+    "server": "nodemon server",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently --kill-others-on-fail  \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "Kumari Priyadarshini",
@@ -27,6 +29,7 @@
     "nanoid": "^4.0.2"
   },
   "devDependencies": {
+    "concurrently": "^8.2.0",
     "nodemon": "^3.0.1"
   }
 }
