@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import axios from 'axios';
 import {
   AddJob,
   Admin,
@@ -13,8 +12,9 @@ import {
   Register,
   Stats,
 } from './pages';
+import customFetch from './utils/customFetch';
 
-const response = await axios.get('/api/v1/test');
+const response = await customFetch.get('/test');
 console.log(response);
 console.log(response.data);
 
