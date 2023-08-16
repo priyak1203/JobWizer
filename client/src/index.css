@@ -225,3 +225,8 @@ ul {
   max-width: var(--max-width);
   margin: 0 auto;
 }
+
+/* toasts */
+.Toastify__toast {
+  text-transform: capitalize;
+}
