@@ -13,6 +13,11 @@ import {
   Stats,
 } from './pages';
 
+// checking the proxy setup
+fetch('/api/v1/test')
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+
 const router = createBrowserRouter([
   {
     path: '/',
