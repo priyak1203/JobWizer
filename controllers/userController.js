@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/userModel.js';
+import Job from '../models/jobModel.js';
 
 // Get current user info
 export const getCurrentUser = async (req, res) => {
@@ -10,7 +11,9 @@ export const getCurrentUser = async (req, res) => {
 
 // Get application stats
 export const getApplicationStats = async (req, res) => {
-  res.status(StatusCodes.OK).json({ msg: 'get application stats' });
+  const users = await User.countDocuments();
+  const jobs = await Job.countDocuments();
+  res.status(StatusCodes.OK).json({ users, jobs });
 };
 
 // Update user info
