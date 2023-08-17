@@ -1,7 +1,28 @@
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { FormRow, FormRowSelect } from '../components';
 import { JOB_STATUS, JOB_TYPE } from '../../../utils/constants';
-import { useNavigation, useOutletContext } from 'react-router-dom';
+import {
+  Form,
+  redirect,
+  useNavigation,
+  useOutletContext,
+} from 'react-router-dom';
+import customFetch from '../utils/customFetch';
+import { toast } from 'react-toastify';
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    await customFetch.post('/jobs', data);
+    toast.success('job added successfully');
+    return redirect('all-jobs');
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+};
 
 const AddJob = () => {
   const { user } = useOutletContext();
@@ -10,7 +31,7 @@ const AddJob = () => {
 
   return (
     <Wrapper>
-      <form className="form">
+      <Form method="post" className="form">
         <h4 className="form-title">add job</h4>
         <div className="form-center">
           <FormRow type="text" name="position" />
@@ -41,7 +62,7 @@ const AddJob = () => {
             {isSubmitting ? 'submitting...' : 'submit'}
           </button>
         </div>
-      </form>
+      </Form>
     </Wrapper>
   );
 };
