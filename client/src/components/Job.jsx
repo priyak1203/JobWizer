@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import moment from 'moment/moment';
 import Wrapper from '../assets/wrappers/Job';
@@ -35,9 +35,11 @@ const Job = ({
           <Link to={`../edit-job/${_id}`} className="btn edit-btn">
             edit
           </Link>
-          <button type="submit" className="btn delete-btn">
-            delete
-          </button>
+          <Form method="post" action={`../delete-job/${_id}`}>
+            <button type="submit" className="btn delete-btn">
+              delete
+            </button>
+          </Form>
         </footer>
       </div>
     </Wrapper>
