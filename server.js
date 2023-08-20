@@ -4,10 +4,16 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import 'express-async-errors';
 import cookieParser from 'cookie-parser';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import path from 'path';
 
 dotenv.config();
 
 const app = express();
+
+// create __dirname
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // routers
 import userRouter from './routes/userRouter.js';
@@ -29,6 +35,7 @@ if (process.env.NODE_ENV === 'development') {
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.resolve(__dirname, './public')));
 
 // test routes
 app.get('/', (req, res) => {
