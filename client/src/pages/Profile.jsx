@@ -1,6 +1,29 @@
 import { Form, useNavigation, useOutletContext } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { FormRow } from '../components';
+import { toast } from 'react-toastify';
+import customFetch from '../utils/customFetch';
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+
+  const file = formData.get('avatar');
+  const maxSize = 0.5 * 1024 * 1024;
+
+  if (file && file.size > maxSize) {
+    toast.error('image size too large');
+    return null;
+  }
+
+  try {
+    await customFetch.patch('/users/update-user', formData);
+    toast.success('profile updated successfully');
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+
+  return null;
+};
 
 const Profile = () => {
   const { user } = useOutletContext();
@@ -10,7 +33,7 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <Form method="post" className="form">
+      <Form method="post" className="form" encType="multipart/form-data">
         <h4 className="form-title">profile</h4>
         {/* file input */}
         <div className="form-center">
