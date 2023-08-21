@@ -7,10 +7,18 @@ import cookieParser from 'cookie-parser';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'path';
+import cloudinary from 'cloudinary';
 
 dotenv.config();
 
 const app = express();
+
+// setup cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 // create __dirname
 const __dirname = dirname(fileURLToPath(import.meta.url));
