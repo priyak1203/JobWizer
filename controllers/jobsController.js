@@ -40,9 +40,21 @@ export const getAllJobs = async (req, res) => {
 
   const sortKey = sortOptions[sort] || sortOptions.newest;
 
-  const jobs = await Job.find(queryObject).sort(sortKey);
+  // pagination
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
 
-  res.status(StatusCodes.OK).json({ totalJobs: jobs.length, jobs });
+  const jobs = await Job.find(queryObject)
+    .sort(sortKey)
+    .skip(skip)
+    .limit(limit);
+  const totalJobs = await Job.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalJobs / limit);
+
+  res
+    .status(StatusCodes.OK)
+    .json({ totalJobs, numOfPages, currentPage: page, jobs });
 };
 
 // CREATE JOB
