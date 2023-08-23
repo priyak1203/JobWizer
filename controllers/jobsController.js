@@ -5,8 +5,43 @@ import moment from 'moment';
 
 // GET ALL JOBS
 export const getAllJobs = async (req, res) => {
-  console.log(req.user);
-  const jobs = await Job.find({ createdBy: req.user.userId });
+  const { search, jobStatus, jobType, sort } = req.query;
+
+  // search the job of a specific user
+  const queryObject = {
+    createdBy: req.user.userId,
+  };
+
+  // filtering based on search, job status and job type
+  if (search) {
+    queryObject.$or = [
+      { position: { $regex: search, $options: 'i' } },
+      {
+        company: { $regex: search, $options: 'i' },
+      },
+    ];
+  }
+
+  if (jobStatus && jobStatus !== 'all') {
+    queryObject.jobStatus = jobStatus;
+  }
+
+  if (jobType && jobType !== 'all') {
+    queryObject.jobType = jobType;
+  }
+
+  // sort functionality
+  const sortOptions = {
+    newest: '-createdAt',
+    oldest: 'createdAt',
+    'a-z': 'position',
+    'z-a': '-position',
+  };
+
+  const sortKey = sortOptions[sort] || sortOptions.newest;
+
+  const jobs = await Job.find(queryObject).sort(sortKey);
+
   res.status(StatusCodes.OK).json({ totalJobs: jobs.length, jobs });
 };
 
