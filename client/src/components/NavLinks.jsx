@@ -27,4 +27,5 @@ const NavLinks = ({ isBigSidebar }) => {
     </div>
   );
 };
+
 export default NavLinks;

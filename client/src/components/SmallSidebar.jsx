@@ -28,4 +28,5 @@ const SmallSidebar = () => {
     </Wrapper>
   );
 };
+
 export default SmallSidebar;

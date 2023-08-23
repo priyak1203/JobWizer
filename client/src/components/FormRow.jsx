@@ -15,4 +15,5 @@ const FormRow = ({ type, name, labelText, defaultValue = '' }) => {
     </div>
   );
 };
+
 export default FormRow;
