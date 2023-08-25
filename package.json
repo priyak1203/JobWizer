@@ -10,7 +10,8 @@
     "dev-server": "nodemon server.js",
     "server": "nodemon server",
     "client": "cd client && npm run dev",
-    "dev": "concurrently --kill-others-on-fail  \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail  \"npm run server\" \"npm run client\"",
+    "setup-production-app": "npm i && cd client && npm i && npm run build"
   },
   "keywords": [],
   "author": "Kumari Priyadarshini",
