@@ -51,9 +51,9 @@ const Wrapper = styled.section`
     transition: var(--transition);
   }
   .dots {
-    /* display: grid;
+    display: grid;
     place-items: center;
-    cursor: text; */
+    cursor: text;
   }
 `;
 
