@@ -10,12 +10,20 @@ import { toast } from 'react-toastify';
 import { BigSidebar, Loading, Navbar, SmallSidebar } from '../components';
 import Wrapper from '../assets/wrappers/Dashboard';
 import customFetch from '../utils/customFetch';
+import { useQuery } from '@tanstack/react-query';
 
-export const loader = async () => {
-  // get current user
-  try {
+const userQuery = {
+  queryKey: ['user'],
+  queryFn: async () => {
     const { data } = await customFetch.get('/users/current-user');
     return data;
+  },
+};
+
+export const loader = (queryClient) => async () => {
+  // get current user
+  try {
+    return await queryClient.ensureQueryData(userQuery);
   } catch (error) {
     return redirect('/');
   }
@@ -32,7 +40,8 @@ const checkDefaultTheme = () => {
 const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
-  const { user } = useLoaderData();
+
+  const { user } = useQuery(userQuery).data;
   const navigate = useNavigate();
 
   const navigation = useNavigation();
