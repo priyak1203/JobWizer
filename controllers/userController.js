@@ -1,8 +1,8 @@
 import cloudinary from 'cloudinary';
-import { promises as fs } from 'fs';
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/userModel.js';
 import Job from '../models/jobModel.js';
+import { formatImage } from '../middlewares/multer.js';
 
 // Get current user info
 export const getCurrentUser = async (req, res) => {
@@ -25,10 +25,11 @@ export const updateUser = async (req, res) => {
 
   // if file exists upload the pic to cloudinary
   if (req.file) {
-    const response = await cloudinary.v2.uploader.upload(req.file.path, {
+    const file = formatImage(req.file);
+    const response = await cloudinary.v2.uploader.upload(file, {
       folder: 'jobwizer',
     });
-    await fs.unlink(req.file.path);
+
     newUser.avatar = response.secure_url;
     newUser.avatarPublicId = response.public_id;
   }
