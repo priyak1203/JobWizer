@@ -58,7 +58,11 @@ const DashboardLayout = ({ queryClient }) => {
     const {
       data: { msg },
     } = await customFetch.get('/auth/logout');
+    // remove dark theme from landing page
+    document.body.classList.remove('dark-theme');
+    // invalidate queries and clear cache
     queryClient.invalidateQueries();
+    queryClient.clear();
     toast.success(msg);
   };
 
