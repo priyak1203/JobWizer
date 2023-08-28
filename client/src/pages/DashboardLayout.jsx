@@ -1,11 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import {
-  Outlet,
-  redirect,
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from 'react-router-dom';
+import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BigSidebar, Loading, Navbar, SmallSidebar } from '../components';
 import Wrapper from '../assets/wrappers/Dashboard';
@@ -37,11 +31,11 @@ const checkDefaultTheme = () => {
   return isDarkTheme;
 };
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ queryClient }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 
-  const { user } = useQuery(userQuery).data;
+  const { user } = useQuery(userQuery)?.data;
   const navigate = useNavigate();
 
   const navigation = useNavigation();
@@ -63,6 +57,7 @@ const DashboardLayout = () => {
     const {
       data: { msg },
     } = await customFetch.get('/auth/logout');
+    queryClient.invalidateQueries();
     toast.success(msg);
   };
 

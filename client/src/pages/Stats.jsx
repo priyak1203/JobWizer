@@ -1,4 +1,3 @@
-import { useLoaderData } from 'react-router-dom';
 import { ChartsContainer, StatsContainer } from '../components';
 import customFetch from '../utils/customFetch';
 import { useQuery } from '@tanstack/react-query';
