@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BigSidebar, Loading, Navbar, SmallSidebar } from '../components';
@@ -34,6 +34,7 @@ const checkDefaultTheme = () => {
 const DashboardLayout = ({ queryClient }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
+  const [isAuthError, setIsAuthError] = useState(false);
 
   const { user } = useQuery(userQuery)?.data;
   const navigate = useNavigate();
@@ -60,6 +61,26 @@ const DashboardLayout = ({ queryClient }) => {
     queryClient.invalidateQueries();
     toast.success(msg);
   };
+
+  // interceptor to check auth error
+  customFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+
+    (error) => {
+      if (error?.response?.status === 401) {
+        setIsAuthError(true);
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  // logout the user if there is an auth error
+  useEffect(() => {
+    if (!isAuthError) return;
+    logoutUser();
+  }, [isAuthError]);
 
   return (
     <DashboardContext.Provider
