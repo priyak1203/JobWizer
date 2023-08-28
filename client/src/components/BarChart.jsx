@@ -15,8 +15,8 @@ const BarChartComponent = ({ data }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis allowDecimals={false} />
-        <Tooltip />
-        <Bar dataKey="count" fill="#379569" barSize={75} />
+        <Tooltip contentStyle={{ color: '#333' }} />
+        <Bar dataKey="count" fill="#b76fb6" barSize={75} />
       </BarChart>
     </ResponsiveContainer>
   );

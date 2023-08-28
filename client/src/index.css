@@ -5,20 +5,19 @@
   /* colors */
 
   /* lighter shades of primary color */
-  --primary-50: #cde4da;
-  --primary-100: #b4d7c7;
-  --primary-200: #82bda2;
-  --primary-300: #50a27c;
-  --primary-400: #379569;
+  --primary-50: #e9d4e9;
+  --primary-100: #e2c5e2;
+  --primary-200: #d4a9d3;
+  --primary-300: #c58cc5;
+  --primary-400: #be7dbd;
   /* primary/main color */
-  --primary-500: #057a44;
+  --primary-500: #b76fb6;
   /* dark shades of primary color*/
-  --primary-600: #056e3d;
-  --primary-700: #046236;
-  --primary-800: #045530;
-  --primary-900: #033d22;
+  --primary-600: #a564a4;
+  --primary-700: #925992;
+  --primary-800: #804e7f;
+  --primary-900: #6e436d;
 
-  /* grey */
   /* grey */
   --grey-50: #f8fafc;
   --grey-100: #f1f5f9;
@@ -89,6 +88,7 @@ html {
 .dark-theme {
   --background-color: var(--dark-mode-bg-color);
   --text-color: var(--dark-mode-text-color);
+  /* --text-color: var(--grey-800); */
   --background-secondary-color: var(--dark-mode-bg-secondary-color);
   --text-secondary-color: var(--dark-mode-text-secondary-color);
 }
