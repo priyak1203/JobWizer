@@ -1,6 +1,6 @@
 import { Form, Link } from 'react-router-dom';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
-import moment from 'moment/moment';
+import moment from 'moment';
 import Wrapper from '../assets/wrappers/Job';
 import JobInfo from './JobInfo';
 
@@ -13,7 +13,7 @@ const Job = ({
   jobType,
   jobStatus,
 }) => {
-  const date = moment(createdAt).format('MMM do, YYYY');
+  const date = moment(createdAt).format('MMM Do, YYYY');
 
   return (
     <Wrapper>
